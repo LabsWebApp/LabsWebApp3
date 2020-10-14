@@ -5,7 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Views\EventItems\" />
+    <Folder Include="Areas\Admin\Views\Home\" />
+    <Folder Include="Areas\Admin\Views\TextFields\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\Domain\Entities\" />
+    <Folder Include="Models\Domain\Repositories\Abstract\" />
+    <Folder Include="Models\Domain\Repositories\EntityFramework\" />
+    <Folder Include="Models\ViewComponents\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="Views\Events\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\Shared\Components\Sidebar\" />
     <Folder Include="wwwroot\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 
   <ItemGroup>
