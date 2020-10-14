@@ -37,6 +37,31 @@ namespace XandCo.Domain
                 CodeWord = "ContactsPage", 
                 Title = "Контакты"
             });
+
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = "C3BD297D-2AEC-4582-B679-FDA3AA5164D3",
+                Name = "admin",
+                NormalizedName = "ADMIN"
+            });
+
+            modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser
+            {
+                Id = "A8B0919E-FA64-4F08-89C5-A37B5F003C00",
+                UserName = "admin",
+                NormalizedUserName = "ADMIN",
+                Email = "admin@email.com",
+                NormalizedEmail = "ADMIN@EMAIL.COM",
+                EmailConfirmed = true,
+                PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "password"),
+                SecurityStamp = string.Empty
+            });
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = "C3BD297D-2AEC-4582-B679-FDA3AA5164D3",
+                UserId = "A8B0919E-FA64-4F08-89C5-A37B5F003C00"
+            });
         }
     }
 }
