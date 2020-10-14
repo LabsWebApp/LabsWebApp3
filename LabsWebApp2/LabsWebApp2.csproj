@@ -18,8 +18,8 @@
     <Folder Include="Views\Events\" />
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Shared\Components\Sidebar\" />
-    <Folder Include="wwwroot\" />
     <Folder Include="Helpers\" />
+    <Folder Include="wwwroot\images\DB\" />
   </ItemGroup>
 
   <ItemGroup>
