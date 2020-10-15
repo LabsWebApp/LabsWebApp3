@@ -1,6 +1,6 @@
 ﻿using LabsWebApp3.Models.Domain.Repositories.Abstract;
 
-namespace XandCo.Domain
+namespace LabsWebApp3.Models.Domain
 {
     public class DataManager
     {

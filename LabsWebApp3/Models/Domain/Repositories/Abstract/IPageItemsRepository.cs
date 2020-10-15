@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace LabsWebApp3.Models.Domain.Repositories.Abstract
 {
-    //create read update delete CRUD
     public interface IPageItemsRepository<TEntity> where TEntity : class
     {
         IQueryable<TEntity> Items { get; }

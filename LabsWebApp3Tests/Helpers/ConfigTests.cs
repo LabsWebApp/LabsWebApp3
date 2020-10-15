@@ -15,15 +15,21 @@ namespace LabsWebApp3.Helpers.Tests
         {
             //arrange
             DbConnection connection = new SqlConnection();
-            string connStr = Config.ConnectionString;
+            Config.ConnectionString =
+                "Data Source=(local)\\SQLEXPRESS; " +
+                "Database=AppDb; " +
+                "Persist Security Info=false; " +
+                "User ID='sa'; Password='sa'; " +
+                "MultipleActiveResultSets=True; " +
+                "Trusted_Connection=False;"; 
             ConnectionState expected = ConnectionState.Open;
             //act
-            ConnectionState actual = getState(connection, connStr);
+            ConnectionState actual = GetState(connection, Config.ConnectionString);
             //assert
             Assert.AreEqual(expected, actual);
         }
 
-        private ConnectionState getState(DbConnection connection, string connStr)
+        private ConnectionState GetState(DbConnection connection, string connStr)
         {
             ConnectionState actual = ConnectionState.Closed;
             try

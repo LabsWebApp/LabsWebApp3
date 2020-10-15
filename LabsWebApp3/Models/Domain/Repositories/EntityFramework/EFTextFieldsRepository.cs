@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using LabsWebApp3.Models.Domain.Entities;
 using LabsWebApp3.Models.Domain.Repositories.Abstract;
 
-namespace XandCo.Domain.Repositories.EntityFramework
+namespace LabsWebApp3.Models.Domain.Repositories.EntityFramework
 {
     public class EFTextFieldsRepository : ITextFieldsRepository
     {

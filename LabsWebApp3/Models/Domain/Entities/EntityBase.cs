@@ -7,15 +7,13 @@ namespace LabsWebApp3.Models.Domain.Entities
     {
         protected EntityBase() => DateAdded = DateTime.UtcNow.Date;
 
-        [Key]
-        public Guid Id { get; set; }
+        [Required]
+        public Guid Id { get;set; }
 
-        [Display(Name = "Название / заголовок")]
-        [MinLength(1, ErrorMessage = "необходим хотя бы один символ")]
+        [Display(Name = "Название / заголовок"), MaxLength(50)]
         public virtual string Title { get; set; }
 
-        [Display(Name = "Краткое описание")]
-        [MaxLength(256, ErrorMessage = "максимум 256 символов")]
+        [Display(Name = "Краткое описание"), MaxLength(256)]
         public virtual string Subtitle { get; set; }
 
         [Display(Name = "Полное описание")]
@@ -24,16 +22,13 @@ namespace LabsWebApp3.Models.Domain.Entities
         [Display(Name = "Титульная картинка")]
         public virtual string TitleImagePath { get; set; }
 
-        [Display(Name = "SEO метатег Title")]
-        [MaxLength(40, ErrorMessage = "максимум 50 символов")]
+        [Display(Name = "SEO метатег Title"), MaxLength(50)]
         public string MetaTitle { get; set; }
 
-        [Display(Name = "SEO метатег Description")]
-        [MaxLength(256, ErrorMessage = "максимум 256 символов")]
+        [Display(Name = "SEO метатег Description"), MaxLength(256)]
         public string MetaDescription { get; set; }
 
-        [Display(Name = "SEO метатег Keywords")]
-        [MaxLength(256, ErrorMessage = "максимум 256 символов")]
+        [Display(Name = "SEO метатег Keywords"), MaxLength(50)]
         public string MetaKeywords { get; set; }
 
         [DataType(DataType.Time)]
