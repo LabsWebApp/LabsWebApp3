@@ -63,12 +63,12 @@ namespace LabsWebApp3
             });
 
             //добавляем сервисы для контроллеров и представлений (MVC)
-            //services.AddControllersWithViews(x =>
-            //{
-            //    x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
-            //})
-            //    //выставляем совместимость с asp.net core 3.0
-            //    .SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();
+            services.AddControllersWithViews(x =>
+            {
+                x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
+            })
+                //выставляем совместимость с asp.net core 3.0
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
