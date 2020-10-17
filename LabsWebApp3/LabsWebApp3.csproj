@@ -5,12 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Views\EventItems\" />
-    <Folder Include="Areas\Admin\Views\Home\" />
-    <Folder Include="Areas\Admin\Views\TextFields\" />
     <Folder Include="Models\ViewComponents\" />
-    <Folder Include="Views\Account\" />
     <Folder Include="Views\Events\" />
     <Folder Include="Views\Shared\Components\Sidebar\" />
     <Folder Include="wwwroot\images\DB\" />

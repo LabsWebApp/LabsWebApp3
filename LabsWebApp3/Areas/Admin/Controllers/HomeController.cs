@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LabsWebApp3.Models.Domain;
 
-namespace LabsWebApp3.Controllers
+namespace LabsWebApp3.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class HomeController : Controller
     {
         private readonly DataManager dataManager;
@@ -14,12 +15,7 @@ namespace LabsWebApp3.Controllers
 
         public IActionResult Index()
         {
-            return View(dataManager.TextFields.GetItemByCodeWord("HomePage"));
-        }
-
-        public IActionResult Contacts()
-        {
-            return View("TextOnly", dataManager.TextFields.GetItemByCodeWord("ContactsPage"));
+            return View(dataManager.TextFields.Items);
         }
     }
 }

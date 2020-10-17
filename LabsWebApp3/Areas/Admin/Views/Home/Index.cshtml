@@ -1,0 +1,25 @@
+﻿@model IQueryable<TextField>
+@{
+    string strTitle = "Панель администратора";
+    ViewBag.Title = strTitle;
+}
+
+<div>
+    <h2>@strTitle</h2>
+    <div>
+        <h3>Наши события</h3>
+    </div>
+    <div class="div-box">
+        <h3>Редактировать страницы сайта</h3>
+        <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="HomePage">Главная</a>
+        <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="EventsPage">Наши события</a>
+        <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="ContactsPage">Контакты</a>
+    </div>
+    <div class="div-box">
+        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+            <input type="submit" value="Выйти" />
+        </form>
+    </div>
+</div>
+
+
