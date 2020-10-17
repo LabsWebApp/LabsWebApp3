@@ -5,7 +5,7 @@ namespace LabsWebApp3.Models
     public class LoginViewModel
     {
         [Required(ErrorMessage = "Введите логин")]
-        [Display(Name = "Логин"), MaxLength(40), MinLength(4)]
+        [Display(Name = "Логин"), MaxLength(40), MinLength(4, ErrorMessage = "Слишком короткий логин (min > 4)")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Введите пароль")]
