@@ -1,4 +1,4 @@
-﻿@model IQueryable<TextField>
+﻿@model IQueryable<EventItem>
 @{
     string strTitle = "Панель администратора";
     ViewBag.Title = strTitle;
@@ -8,6 +8,27 @@
     <h2>@strTitle</h2>
     <div>
         <h3>Наши события</h3>
+        <div class="div-box">
+            <a asp-area="Admin" asp-controller="EventItems" asp-action="Edit" asp-route-id="">Добавить событие</a>
+        </div>
+        @if (Model.Any())
+        {
+            <div>
+                @foreach (EventItem entity in Model)
+                {
+                    <div>
+                        <a asp-area="Admin" asp-controller="EventItems" asp-action="Edit" asp-route-id="@entity.Id">редактировать</a>
+                        |
+                        @Html.ActionLink("удалить", "Delete", "EventItems", new { id = @entity.Id },
+                            new { onclick = $"return confirm('Удалить безвозвратно событие: \"{@entity.Title}\"?')" })
+                        |
+                        <a asp-area="" asp-controller="Events" asp-action="Index" asp-route-id="@entity.Id">
+                            @($"{entity.Title}")
+                        </a>
+                    </div>
+                }
+            </div>
+        }
     </div>
     <div class="div-box">
         <h3>Редактировать страницы сайта</h3>

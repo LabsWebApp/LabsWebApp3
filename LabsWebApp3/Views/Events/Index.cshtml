@@ -1,0 +1,27 @@
+﻿@model IQueryable<EventItem>
+@{
+    TextField textField = ViewBag.TextField;
+
+    ViewBag.Title = textField.MetaTitle;
+    ViewBag.Description = textField.MetaDescription;
+    ViewBag.Keywords = textField.MetaKeywords;
+}
+
+<div class="div-overflow">
+    <ul class="big-image-list">
+        @foreach (var entity in Model)
+        {
+            <li>
+                <a asp-area="" asp-controller="Events" asp-action="Index" asp-route-id="@entity.Id">
+                    @if (!string.IsNullOrWhiteSpace(entity.TitleImagePath))
+                    {
+                        <img src="~/images/DB/@entity.TitleImagePath" alt="" class="left" />
+                    }
+                    <h4>@entity.Title</h4>
+                    <h4>@entity.DateAdded.ToShortDateTimeString()</h4>
+                </a>
+                <p>@entity.Subtitle</p>
+            </li>
+        }
+    </ul>
+</div>

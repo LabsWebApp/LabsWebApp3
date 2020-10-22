@@ -5,14 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Views\EventItems\" />
-    <Folder Include="Models\ViewComponents\" />
-    <Folder Include="Views\Events\" />
-    <Folder Include="Views\Shared\Components\Sidebar\" />
-    <Folder Include="wwwroot\images\DB\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9">
@@ -1545,6 +1537,12 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\ViewComponents\" />
+    <Folder Include="Views\Shared\Components\Sidebar\" />
+    <Folder Include="wwwroot\images\DB\" />
   </ItemGroup>
 
 </Project>

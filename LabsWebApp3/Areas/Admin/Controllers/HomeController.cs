@@ -15,7 +15,7 @@ namespace LabsWebApp3.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View(dataManager.TextFields.Items);
+            return View(dataManager.EventItems.Items);
         }
     }
 }
