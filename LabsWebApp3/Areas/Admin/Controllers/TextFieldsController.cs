@@ -25,7 +25,7 @@ namespace LabsWebApp3.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                //AutoSEO.Set(model);
+                AutoSEO.Set(model);
                 dataManager.TextFields.SaveItem(model);
                 return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).CutController());
             }

@@ -59,6 +59,12 @@ namespace LabsWebApp3.Models.Domain
                 CodeWord = "ContactsPage", 
                 Title = "Контакты"
             });
+            modelBuilder.Entity<TextField>().HasData(new TextField
+            {
+                Id = new Guid("260F39BF-CA45-4154-431D-08D87252E4FE"),
+                CodeWord = "PrivacyPage",
+                Title = "Соглашения"
+            });
         }
     }
 }

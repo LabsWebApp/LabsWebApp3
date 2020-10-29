@@ -1,0 +1,26 @@
+﻿@model IQueryable<EventItem>
+
+@if (Model?.Any() == true)
+{
+    <section>
+        <h2>Наши события</h2>
+        <ul class="small-image-list">
+            @foreach (var entity in Model)
+            {
+                <li>
+                    <a asp-area="" asp-controller="Events" asp-action="Index" asp-route-id="@entity.Id">
+                        @if (!string.IsNullOrWhiteSpace(entity.TitleImagePath))
+                        {
+                            <img src="~/images/DB/@entity.TitleImagePath" alt="" class="left" />
+                        }
+                        <h4>@entity.DateAdded.ToShortDateTimeString()</h4>
+                        <h4>@entity.Title</h4>
+                    </a>
+                    <p>
+                        @entity.Subtitle
+                    </p>
+                </li>
+            }
+        </ul>
+    </section>
+}

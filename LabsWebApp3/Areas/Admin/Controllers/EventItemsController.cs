@@ -50,7 +50,7 @@ namespace LabsWebApp3.Areas.Admin.Controllers
                     }
                 }
                 
-               // AutoSEO.Set(model);
+                AutoSEO.Set(model);
 
                 dataManager.EventItems.SaveItem(model);
                 return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).CutController());

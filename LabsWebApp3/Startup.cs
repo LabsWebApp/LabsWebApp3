@@ -46,14 +46,14 @@ namespace LabsWebApp3
             }).AddEntityFrameworkStores<EFAppDbContext>().AddDefaultTokenProviders();
 
             //настраиваем authentication cookie
-            //services.ConfigureApplicationCookie(options =>
-            //{
-            //    options.Cookie.Name = "LabsWebApp3Auth";
-            //    options.Cookie.HttpOnly = true;
-            //    options.LoginPath = "/account/login";
-            //    options.AccessDeniedPath = "/account/accessdenied";
-            //    options.SlidingExpiration = true;
-            //});
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = "LabsWebApp3Auth";
+                options.Cookie.HttpOnly = true;
+                options.LoginPath = "/account/login";
+                options.AccessDeniedPath = "/account/accessdenied";
+                options.SlidingExpiration = true;
+            });
 
             //настраиваем политику авторизации для Admin area
             //позже настроим для чата

@@ -1540,8 +1540,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\ViewComponents\" />
-    <Folder Include="Views\Shared\Components\Sidebar\" />
     <Folder Include="wwwroot\images\DB\" />
   </ItemGroup>
 
