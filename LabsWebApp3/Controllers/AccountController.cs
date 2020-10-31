@@ -45,6 +45,42 @@ namespace LabsWebApp3.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public IActionResult Register(string returnUrl)
+        {
+            ViewBag.returnUrl = returnUrl;
+            return View(new RegisterViewModel());
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                IdentityUser user = new IdentityUser { 
+                    Email = model.Email, 
+                    UserName = model.UserName
+                };
+                // добавляем пользователя
+                var result = await userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    // установка куки
+                    await signInManager.SignInAsync(user, false);
+                    return Redirect(returnUrl ?? "/");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(model);
+        }
+
         [Authorize]
         public async Task<IActionResult> Logout()
         {
