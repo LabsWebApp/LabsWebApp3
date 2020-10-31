@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using LabsWebApp3.Models;
+using LabsWebApp3.Models.IdentityModels;
 
 namespace LabsWebApp3.Controllers
 {
