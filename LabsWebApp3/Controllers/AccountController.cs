@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using LabsWebApp3.Models.IdentityModels;
+using System;
 
 namespace LabsWebApp3.Controllers
 {
@@ -46,7 +47,7 @@ namespace LabsWebApp3.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Register(string returnUrl)
+        public IActionResult Register(string returnUrl, Guid id)
         {
             ViewBag.returnUrl = returnUrl;
             return View(new RegisterViewModel());
@@ -60,7 +61,9 @@ namespace LabsWebApp3.Controllers
             {
                 IdentityUser user = new IdentityUser { 
                     Email = model.Email, 
-                    UserName = model.UserName
+                    UserName = model.UserName,
+                    //ВРЕМЕННО!!!                   УДАЛИТЬ!!!
+                    EmailConfirmed = true
                 };
                 // добавляем пользователя
                 var result = await userManager.CreateAsync(user, model.Password);
@@ -74,6 +77,19 @@ namespace LabsWebApp3.Controllers
                 {
                     foreach (var error in result.Errors)
                     {
+                        switch (error.Code)
+                        {
+                            case "InvalidEmail":
+                                error.Description = "Не верно указан почтовый адрес";
+                                break;
+                            case "DuplicateUserName":
+                                error.Description = "Пользователь с таким именем уже существует";
+                                break;
+                            case "DuplicateEmail":
+                                error.Description = "Почтовый адрес привязан к другому пользователю";
+                                break;
+                        }
+                            
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
@@ -85,6 +101,7 @@ namespace LabsWebApp3.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
+            HttpContext.Response.Cookies.Delete(".AspNetCore.Cookies");
             return RedirectToAction("Index", "Home");
         }
     }

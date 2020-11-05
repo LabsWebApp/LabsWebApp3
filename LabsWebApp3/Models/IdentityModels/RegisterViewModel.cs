@@ -11,17 +11,18 @@ namespace LabsWebApp3.Models.IdentityModels
             MinLength(4, ErrorMessage = "Слишком короткий логин (min = 4)")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Введите Email")]
         [ConcurrencyCheck]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Введите пароль")]
         [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = "Слишком короткий пароль (min = 6)")]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Подтвердите пароль")]
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]
         [Display(Name = "Подтвердить пароль")]

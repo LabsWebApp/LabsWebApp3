@@ -1,0 +1,33 @@
+﻿@model RegisterViewModel
+<div>
+    <h1>Регистрация нового пользователя</h1>
+    <div class="div-box">
+        <form asp-controller="Account" asp-action="Register" method="post" asp-route-returnUrl="@ViewBag.returnUrl">
+            <div asp-validation-summary="All"></div>
+            <div>
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" />
+                <span asp-validation-for="UserName"></span>
+            </div>
+            <div>
+                <label asp-for="Email"></label>
+                <input asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div>
+                <label asp-for="Password"></label>
+                <input asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div>
+                <label asp-for="PasswordConfirm"></label>
+                <input asp-for="PasswordConfirm" />
+                <span asp-validation-for="PasswordConfirm"></span>
+            </div>
+            <div>
+                <br />
+                <input type="submit" value="Регистрация" />
+            </div>
+        </form>
+    </div>
+</div>
