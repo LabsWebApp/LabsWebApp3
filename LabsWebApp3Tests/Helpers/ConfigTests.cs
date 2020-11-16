@@ -17,7 +17,7 @@ namespace LabsWebApp3.Helpers.Tests
             DbConnection connection = new SqlConnection();
             Config.ConnectionString =
                 "Data Source=(local)\\SQLEXPRESS; " +
-                "Database=AppDb; " +
+                "Database=LabsWebAppDB; " +
                 "Persist Security Info=false; " +
                 "User ID='sa'; Password='sa'; " +
                 "MultipleActiveResultSets=True; " +

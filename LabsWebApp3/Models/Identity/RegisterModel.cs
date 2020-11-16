@@ -1,18 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using LabsWebApp3.Helpers;
 
-namespace LabsWebApp3.Models.IdentityModels
+namespace LabsWebApp3.Models.Identity
 {
-    public class RegisterViewModel
+    public class RegisterModel
     {
         [Required(ErrorMessage = "Введите логин")]
-        [ConcurrencyCheck]
         [Display(Name = "Логин")]
         [MaxLength(40, ErrorMessage = "Слишком длинный логин (max = 40)"), 
             MinLength(4, ErrorMessage = "Слишком короткий логин (min = 4)")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Введите Email")]
-        [ConcurrencyCheck]
+        [EmailAddress(ErrorMessage = "Введите Email")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

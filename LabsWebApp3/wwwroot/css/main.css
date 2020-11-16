@@ -1230,3 +1230,7 @@ ul.link-list li {
   transition: 0.3s; }
   .span-closebtn hover {
     color: black; }
+
+.div-login {
+  position: absolute;
+  right: 0; }

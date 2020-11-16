@@ -1,0 +1,11 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+
+namespace LabsWebApp3.Models
+{
+    public class InfoModel
+    {
+        [MaxLength(50)] public string Title { get; set; } = "ИНФО";
+        [NotNull] public string Text { get; set; }
+    }
+}

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LabsWebApp3.Models.Domain;
 using System;
+using LabsWebApp3.Models;
 using LabsWebApp3.Models.Domain.Entities;
 
 namespace LabsWebApp3.Controllers
@@ -17,6 +18,11 @@ namespace LabsWebApp3.Controllers
         public IActionResult Index()
         {
             return View(dataManager.TextFields.GetItemByCodeWord("HomePage"));
+        }
+
+        public IActionResult Info(InfoModel model)
+        {
+            return View(model);
         }
 
         public IActionResult Contacts()
