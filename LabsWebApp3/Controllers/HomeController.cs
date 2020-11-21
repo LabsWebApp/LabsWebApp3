@@ -29,10 +29,5 @@ namespace LabsWebApp3.Controllers
         {
             return View("TextOnly", dataManager.TextFields.GetItemByCodeWord("ContactsPage"));
         }
-
-        public IActionResult Privacy()
-        {
-            return View("TextOnly", dataManager.TextFields.GetItemByCodeWord("PrivacyPage"));
-        }
     }
 }

@@ -1234,3 +1234,10 @@ ul.link-list li {
 .div-login {
   position: absolute;
   right: 0; }
+
+.div-right {
+  right: 0; }
+
+.warning-text {
+  color: #9F6000;
+  font-weight: lighter; }

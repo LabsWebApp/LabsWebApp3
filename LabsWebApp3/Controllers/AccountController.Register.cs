@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using LabsWebApp3.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -33,11 +34,11 @@ namespace LabsWebApp3.Controllers
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, "chatreader");
+                    await userManager.AddToRoleAsync(user, Config.RoleReader);
                     // установка куки
                     await signInManager.SignInAsync(user, false);
 
-                    return SendConfirmEmail(user).Result;
+                    return await SendConfirmEmail(user);
                 }
 
                 foreach (var error in result.Errors)
@@ -82,7 +83,7 @@ namespace LabsWebApp3.Controllers
                     });
             }
 
-            return SendConfirmEmail(user).Result;
+            return await SendConfirmEmail(user);
         }
     }
 }

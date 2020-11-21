@@ -26,7 +26,7 @@ namespace LabsWebApp3
             Config.WebRootPath = Path
                 .Combine(Configuration.GetValue<string>(WebHostDefaults.ContentRootKey), "wwwroot");
 
-            //подключаем нужный функционал приложения в качестве сервисов
+            //подключаем нужный функционал приложения в качестве сервиса
             services.AddTransient<ITextFieldsRepository, EFTextFieldsRepository>();
             services.AddTransient<IEventItemsRepository, EFEventItemsRepository>();
             services.AddTransient<DataManager>();
@@ -59,7 +59,7 @@ namespace LabsWebApp3
             //позже настроим для чата
             services.AddAuthorization(x =>
             {
-                x.AddPolicy("AdminArea", policy => { policy.RequireRole("admin"); });
+                x.AddPolicy("AdminArea", policy => { policy.RequireRole(Config.RoleAdmin); });
             });
 
             //добавляем сервисы для контроллеров и представлений (MVC)
@@ -93,7 +93,7 @@ namespace LabsWebApp3
             //регистрируем нужные нам маршруты (ендпоинты)
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("admin", 
+                endpoints.MapControllerRoute(Config.Admin, 
                   "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });

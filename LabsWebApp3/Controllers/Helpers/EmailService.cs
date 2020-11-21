@@ -8,11 +8,11 @@ namespace LabsWebApp3.Controllers.Helpers
 {
     public class EmailService
     {
-        public async Task<string> SendEmailAsync(string name, string email, string subject, string msg)
+        public async Task<string> SendEmailAsync(string name, string email, string sendEmail, string subject, string msg)
         {
             var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress($"Администрация сайта - {Config.Name}", Config.Email));
+            emailMessage.From.Add(new MailboxAddress($"Администрация сайта - {Config.Name}", sendEmail));
             emailMessage.To.Add(new MailboxAddress(name, email));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -29,11 +29,11 @@ namespace LabsWebApp3.Controllers.Helpers
             {
                 await client.AuthenticateAsync(Config.Email, Config.EmailPass);
             }
-            catch 
+            catch
             {
                 return "Север не отвечает!";
             }
-           
+
             if (!client.IsAuthenticated)
                 return "Север не отвечает!";
             try

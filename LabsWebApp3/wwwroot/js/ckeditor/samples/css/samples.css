@@ -499,7 +499,6 @@ html {
 .content input[type="button"] {
   -webkit-appearance: button;
   -moz-appearance: button;
-  appearance: button;
 }
 .content kbd {
   font-size: 12px;

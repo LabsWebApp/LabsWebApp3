@@ -1,0 +1,49 @@
+﻿@model ChangeRoleModel
+@{
+    string strTitle = "Изменение  ролей";
+    ViewBag.Title = strTitle;
+}
+<div>
+    <h2>Изменение  прав доступа для "@Model.UserName"</h2>
+    <form asp-action="Edit" method="post">
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="warning-text" asp-validation-summary="All"></div>
+        }
+        <input type="hidden" name="userId" value="@Model.Id" />Админ-права:
+        <div>
+            <input type="checkbox" name="roles" value=@RoleAdmin @(Model.UserRoles.Contains(RoleAdmin) ? "checked=\"checked\"" : "") />администратор
+            <br />
+            –––––––––––––––––––––
+            <br />
+            Чат*:
+            <br />
+            <input type="checkbox" id="@RoleModerator" onclick="onBox(@RoleModerator)" name="roles" value=@RoleModerator @(Model.UserRoles.Contains(RoleModerator) ? "checked=\"checked\"" : "") />модератор
+            <br />
+            <input type="checkbox" id="@RoleWriter" onclick="onBox(@RoleWriter)" name="roles" value=@RoleWriter @(Model.UserRoles.Contains(RoleWriter) ? "checked=\"checked\"" : "") />участник
+            <br />
+            <input type="checkbox" id="@RoleReader" onclick="onBox(@RoleReader)" name="roles" value=@RoleReader @(Model.UserRoles.Contains(RoleReader) ? "checked=\"checked\"" : "") />гость
+        </div>
+        –––––––––––––––––––––
+        <p>*) Иерархия зависимостей прав доступа в чате: "участник" и "модератор" не могут быть не "гостем".</p>
+        <button type="submit">Изменить</button>
+    </form>
+</div>
+<script type="text/javascript">
+    function onBox(box) {
+        var box1 = document.getElementById("@RoleReader");
+        var box2 = document.getElementById("@RoleWriter");
+        var box3 = document.getElementById("@RoleModerator");
+        switch (box) {
+            case @RoleReader:
+                if (!box1.checked) box2.checked = box3.checked = false;
+                break;
+            case @RoleWriter:
+                if (box2.checked) box1.checked = true;
+                break;
+            case @RoleModerator:
+                if (box3.checked) box1.checked = true;
+                break;
+        }
+    }
+</script>

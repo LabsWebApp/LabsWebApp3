@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using LabsWebApp3.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using LabsWebApp3.Models.Identity;
@@ -64,8 +65,15 @@ namespace LabsWebApp3.Controllers
                     user.Email = model.Email;
                     user.EmailConfirmed = false;
                 }
+
                 if (user.UserName != model.UserName)
                 {
+                    if (Config.Admin.ToUpper() == user.UserName.ToUpper())
+                    {
+                        ModelState.AddModelError(string.Empty,
+                            $"Имя \"{Config.Admin}\" зарезервировано сервером, его нельзя изменять. Однако, пароль рекомендуется поменять, а email можно изменить.");
+                        return View(model);
+                    }
                     todoName = true;
                     user.UserName = model.UserName;
                 }
@@ -78,8 +86,8 @@ namespace LabsWebApp3.Controllers
                     {
                         if (todoName)
                             await signInManager.SignInAsync(user, false);
-                        if (todoEmail)
-                            return SendConfirmEmail(user).Result;
+                        if (todoEmail && !user.EmailConfirmed)
+                            return await SendConfirmEmail(user);
                         return Redirect(ViewBag.returnUrl ?? "/");
                     }
 

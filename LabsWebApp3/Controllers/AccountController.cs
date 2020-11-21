@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using LabsWebApp3.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -40,9 +41,9 @@ namespace LabsWebApp3.Controllers
                         if (string.IsNullOrEmpty(returnUrl))
                         {
                             var roles = await userManager.GetRolesAsync(user);
-                            if (roles?.Contains("admin")==true)
+                            if (roles?.Contains(Config.RoleAdmin)==true)
                                 returnUrl = "/Admin";
-                            else if (roles?.Contains("chatreader") == true)
+                            else if (roles?.Contains(Config.RoleReader) == true)
                                 returnUrl = "/Chat";
                             else returnUrl = "/";
                         }

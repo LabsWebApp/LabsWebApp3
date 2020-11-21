@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using LabsWebApp3.Models.Identity;
 using LabsWebApp3.Controllers.Helpers;
+using LabsWebApp3.Helpers;
 using LabsWebApp3.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -29,13 +30,11 @@ namespace LabsWebApp3.Controllers
                 var user = await userManager.FindByEmailAsync(model.Email);
                 if (user == null)
                 {
-                    return RedirectToAction("Info", "Home", new InfoModel
-                    {
-                        Title = "Email не найден",
-                        Text = $"\"{model.Email}\" не найден в базе данных. Проверьте корректность или пройдите регистрацию."
-                    });
+                    ModelState.AddModelError(string.Empty,
+                        $"\"{model.Email}\" не найден в базе данных. Проверьте корректность или пройдите регистрацию.");
+                    return View(model);
                 }
-                return PasswordEmailConfirm(user, model.Email).Result;
+                return await PasswordEmailConfirm(user);
             }
             return View(model);
         }
@@ -62,7 +61,9 @@ namespace LabsWebApp3.Controllers
             var user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                return View("ForgotPassword");
+                ModelState.AddModelError(string.Empty,
+                    $"\"{model.Email}\" не найден в базе данных. Проверьте корректность или пройдите регистрацию.");
+                return View(model);
             }
 
             var result = await userManager.ResetPasswordAsync(user, model.Code, model.Password);
@@ -79,20 +80,25 @@ namespace LabsWebApp3.Controllers
                 switch (error.Code)
                 {
                     case "InvalidToken":
-                        return PasswordEmailConfirm(user, model.Email, true).Result;
+                        return await PasswordEmailConfirm(user, true);
                 }
                 ModelState.AddModelError(string.Empty, error.Description);
             }
             return View(model);
         }
 
-        async Task<IActionResult> PasswordEmailConfirm(IdentityUser user, string email, bool obsolete = false)
+        async Task<IActionResult> PasswordEmailConfirm(IdentityUser user, bool obsolete = false)
         {
             var code = await userManager.GeneratePasswordResetTokenAsync(user);
+            var admin = await userManager.FindByNameAsync(Config.Admin);
             var callbackUrl = Url.Action("ResetPassword", "Account", new { UserId = user.Id, code }, protocol: HttpContext.Request.Scheme);
             EmailService emailService = new EmailService();
-            var res = await emailService.SendEmailAsync(user.UserName, email, "Смена пароля",
-                $"Для сброса пароля пройдите по ссылке: <a href='{callbackUrl}'>link</a>");
+            var res = await emailService.SendEmailAsync(
+                user.UserName, 
+                user.Email,
+                admin.Email,
+                "Смена пароля",
+                $"Для сброса пароля пройдите по ссылке: <a href='{callbackUrl}'>ссылка</a>");
 
             if (string.Empty == res)
                 return RedirectToAction("Info", "Home", new InfoModel
@@ -100,8 +106,7 @@ namespace LabsWebApp3.Controllers
                     Title = obsolete ? "Код устарел": "Проверьте почту",
                     Text = "Для сброса пароля перейдите по ссылке в письме, отправленном на Ваш email."
                 });
-            else 
-                return RedirectToAction("Info", "Home", new InfoModel
+            return RedirectToAction("Info", "Home", new InfoModel
                 {
                     Text = $"Возникли трудности: {res} Повторите попытку позже."
                 });

@@ -7,10 +7,10 @@ using Microsoft.Data.SqlClient;
 
 namespace LabsWebApp3.Helpers.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class ConfigTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void ConnectionStringGet_SQLSeverConnection_StateOpen()
         {
             //arrange

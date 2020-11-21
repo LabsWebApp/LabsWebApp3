@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using LabsWebApp3.Controllers.Helpers;
+using LabsWebApp3.Helpers;
 using LabsWebApp3.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -38,10 +39,11 @@ namespace LabsWebApp3.Controllers
             if (result.Succeeded)
             {
                 string text = String.Empty;
-                if (await userManager.IsInRoleAsync(user, "chatreader"))
+                if (await userManager.IsInRoleAsync(user, Config.RoleReader))
                 {
-                    await userManager.AddToRoleAsync(user, "chatwriter");
+                    await userManager.AddToRoleAsync(user, Config.RoleWriter);
                     text = "Теперь Вы можете полноценно общаться в чате.";
+                    await signInManager.RefreshSignInAsync(user);
                 }
                 return RedirectToAction("Info", "Home",
                     new InfoModel
@@ -69,7 +71,12 @@ namespace LabsWebApp3.Controllers
                 new { userId = user.Id, code },
                 protocol: HttpContext.Request.Scheme);
             EmailService emailService = new EmailService();
-            var res = await emailService.SendEmailAsync(user.UserName, user.Email, "Подтвердите Ваш Email",
+            var admin = await userManager.FindByNameAsync(Config.Admin);
+            var res = await emailService.SendEmailAsync(
+                user.UserName, 
+                user.Email,
+                admin.Email,
+                "Подтвердите Ваш Email",
                 $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
             string text = string.IsNullOrEmpty(res)
                 ? "Для завершения регистрации проверьте электронную почту и перейдите по ссылке, указанной в письме. Вам доступен чат, но возможность оставлять сообщения появятся только после подтверждения."

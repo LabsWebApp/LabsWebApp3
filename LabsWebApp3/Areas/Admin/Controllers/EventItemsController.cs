@@ -39,19 +39,14 @@ namespace LabsWebApp3.Areas.Admin.Controllers
                             $" переименуйте исходный файл при дальнейшем редактирование  \"{model.Title}\", или нажмите \"Сохранить\" (без сохранения/изменения картинки).");
                         return View(model);
                     }
-                    else
+                    model.TitleImagePath = titleImageFile.FileName;
+                    if (mustSave)
                     {
-                        model.TitleImagePath = titleImageFile.FileName;
-                        if (mustSave)
-                        {
-                            using var stream = new FileStream(saveName, FileMode.Create);
-                            titleImageFile.CopyTo(stream);
-                        }
+                        using var stream = new FileStream(saveName, FileMode.Create);
+                        titleImageFile.CopyTo(stream);
                     }
                 }
-                
                 AutoSEO.Set(model);
-
                 dataManager.EventItems.SaveItem(model);
                 return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).CutController());
             }

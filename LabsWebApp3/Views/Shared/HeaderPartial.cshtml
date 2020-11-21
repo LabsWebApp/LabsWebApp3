@@ -8,7 +8,7 @@
                         <a asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                         <a asp-area="" asp-controller="Events" asp-action="Index" asp-route-id="">Наши события</a>
                         <a asp-area="" asp-controller="Home" asp-action="Contacts">Контакты</a>
-                        @if (User.IsInRole("admin"))
+                        @if (User.IsInRole(Config.RoleAdmin))
                         {
                             <a asp-area="admin" asp-controller="Home" asp-action="Index">Панель Администратора</a>
                         }
@@ -17,12 +17,17 @@
                 <div class="div-login">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a asp-area="" asp-controller="Account" asp-action="EditRegister" asp-route-returnUrl=@ViewData["ReturnUrl"]>@User.Identity.Name.ToLower()</a>
+                        <a asp-area="" asp-controller="Account" asp-action="EditRegister" asp-route-returnUrl=@ViewData["ReturnUrl"]>
+                            <img src="~/images/user.ico" />
+                            @User.Identity.Name.ToLower()
+                        </a>
+                        <label>|</label>
                         <a asp-area="" asp-controller="Account" asp-action="Logout">выход</a>
                     }
                     else
                     {
                         <a asp-area="" asp-controller="Account" asp-action="Login">войти</a>
+                        <label>|</label>
                         <a asp-area="" asp-controller="Account" asp-action="Register">регистрация</a>
                     }
                 </div>

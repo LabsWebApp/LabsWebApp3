@@ -1,4 +1,5 @@
 ﻿using System;
+using LabsWebApp3.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -20,36 +21,36 @@ namespace LabsWebApp3.Models.Domain
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
             {
                 Id = "C3BD297D-2AEC-4582-B679-FDA3AA5164D3",
-                Name = "admin",
-                NormalizedName = "ADMIN"
+                Name = Config.RoleAdmin,
+                NormalizedName = Config.RoleAdmin.ToUpper()
             });
 
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
             {
                 Id = "7E30CC6A-1264-42A0-B8F2-75AEE72A381D",
-                Name = "chatreader",
-                NormalizedName = "CHATREADER"
+                Name = Config.RoleReader,
+                NormalizedName = Config.RoleReader.ToUpper()
             });
 
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
             {
                 Id = "CD703D38-0E75-461D-B3D1-4E7241DA0E70",
-                Name = "chatwtiter",
-                NormalizedName = "CHATWRITER"
+                Name = Config.RoleWriter,
+                NormalizedName = Config.RoleWriter.ToUpper()
             });
 
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
             {
                 Id = "DB25A8AF-4316-4FF6-BCB3-3A6CCE7CFE53",
-                Name = "chatmoderator ",
-                NormalizedName = "CHATMODERATOR"
+                Name = Config.RoleModerator,
+                NormalizedName = Config.RoleModerator.ToUpper()
             });
 
             modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser
             {
                 Id = "A8B0919E-FA64-4F08-89C5-A37B5F003C00",
-                UserName = "admin",
-                NormalizedUserName = "ADMIN",
+                UserName = Config.Admin,
+                NormalizedUserName = Config.Admin,
                 Email = "admin@email.com",
                 NormalizedEmail = "ADMIN@EMAIL.COM",
                 EmailConfirmed = true,
@@ -93,12 +94,6 @@ namespace LabsWebApp3.Models.Domain
                 Id = new Guid("7698042D-A1DB-4190-BB09-CC8954954CED"), 
                 CodeWord = "ContactsPage", 
                 Title = "Контакты"
-            });
-            modelBuilder.Entity<TextField>().HasData(new TextField
-            {
-                Id = new Guid("260F39BF-CA45-4154-431D-08D87252E4FE"),
-                CodeWord = "PrivacyPage",
-                Title = "Соглашения"
             });
         }
     }
