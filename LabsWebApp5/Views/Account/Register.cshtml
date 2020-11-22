@@ -1,0 +1,39 @@
+﻿@model RegisterModel
+@{
+    ViewBag.Title = "Регистрация";
+}
+<div>
+    <h2>Регистрация нового пользователя</h2>
+    <div class="div-box">
+        <form asp-controller="Account" asp-action="Register" method="post" asp-route-returnUrl="@ViewBag.returnUrl">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="warning-text" asp-validation-summary="All"></div>
+            }
+            <div>
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" />
+                <span class="warning-text" asp-validation-for="UserName"></span>
+            </div>
+            <div>
+                <label asp-for="Email"></label>
+                <input asp-for="Email" />
+                <span class="warning-text" asp-validation-for="Email"></span>
+            </div>
+            <div>
+                <label asp-for="Password"></label>
+                <input asp-for="Password" />
+                <span class="warning-text" asp-validation-for="Password"></span>
+            </div>
+            <div>
+                <label asp-for="PasswordConfirm"></label>
+                <input asp-for="PasswordConfirm" />
+                <span class="warning-text" asp-validation-for="PasswordConfirm"></span>
+            </div>
+            <div>
+                <br />
+                <input type="submit" value="Регистрация" />
+            </div>
+        </form>
+    </div>
+</div>

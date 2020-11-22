@@ -1,0 +1,27 @@
+﻿@model EventItem
+@{
+    ViewBag.Title = Model.MetaTitle;
+    ViewBag.Description = Model.MetaDescription;
+    ViewBag.Keywords = Model.MetaKeywords;
+}
+
+<div>
+    <h2>
+        @Model.Title
+    </h2>
+    <div>
+        <label>@Model.DateAdded.ToWillWasString()</label>
+    </div>
+    <p>
+        @Model.Subtitle
+    </p>
+    @if (!string.IsNullOrWhiteSpace(Model.TitleImagePath))
+    {
+        <div>
+            <img class="img-block" src="~/images/DB/@Model.TitleImagePath" />
+        </div>
+    }
+</div>
+<div>
+    @Html.Raw(Model.Text)
+</div>

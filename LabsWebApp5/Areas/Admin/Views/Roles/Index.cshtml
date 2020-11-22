@@ -1,0 +1,31 @@
+﻿@model IQueryable<IdentityUser>
+@{
+    string strTitle = "Список пользователей";
+    ViewBag.Title = strTitle;
+}
+
+<div>
+    <h2>@strTitle</h2>
+    <div>
+        @if(!ViewData.ModelState.IsValid)
+        {
+            <div class="warning-text" asp-validation-summary="All"></div>
+        }
+        @if (Model.Any())
+        {
+            <div class="div-overflow">
+                @foreach (var user in Model)
+                {
+                    <div>
+                        @user.UserName (@user.Email)
+                        |
+                        @Html.ActionLink("удалить", "Delete", "Roles", new {id = user.Id},
+                            new {onclick = $"return confirm('Удаление пользователя не рекомендуется - информация о нём занимает мало места в БД, но блокирует повторное создание. Удалить безвозвратно: \"{user.UserName}\"?')"})
+                        |
+                        <a asp-area="Admin" asp-controller="Roles" asp-action="Edit" asp-route-id="@user.Id">права</a>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,10 @@
+﻿@model InfoModel
+@{
+    ViewBag.Title = Model.Title;
+}
+<div>
+    <h2>@ViewBag.Title</h2>
+    <p>
+        @Html.Raw(Model.Text)
+    </p>
+</div>

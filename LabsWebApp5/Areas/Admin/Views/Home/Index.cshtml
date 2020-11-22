@@ -1,0 +1,48 @@
+﻿@model IQueryable<EventItem>
+@{
+    string strTitle = "Панель администратора";
+    ViewBag.Title = strTitle;
+}
+
+<div>
+    <h2>@strTitle</h2>
+    <div>
+        <h3>Управление пользователями и их правами</h3>
+        <div class="div-box">
+            <a asp-area="Admin" asp-controller="Roles" asp-action="Index">Список пользователей</a>
+        </div>
+        <h3>Наши события</h3>
+        <div class="div-box">
+            <a asp-area="Admin" asp-controller="EventItems" asp-action="Edit" asp-route-id="">Добавить событие</a>
+        </div>
+        @if (Model.Any())
+        {
+            <div>
+                @foreach (var entity in Model)
+                {
+                    <div>
+                        <a asp-area="Admin" asp-controller="EventItems" asp-action="Edit" asp-route-id="@entity.Id">редактировать</a>
+                        |
+                        @Html.ActionLink("удалить", "Delete", "EventItems", new { id = entity.Id },
+                            new { onclick = $"return confirm('Удалить безвозвратно событие: \"{@entity.Title}\"?')" })
+                        |
+                        <a asp-area="" asp-controller="Events" asp-action="Index" asp-route-id="@entity.Id">
+                            @($"{entity.Title}")
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+    <div class="div-box">
+        <h3>Редактировать страницы сайта</h3>
+        <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="HomePage">Главная</a>
+        <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="EventsPage">Наши события</a>
+        <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="ContactsPage">Контакты</a>
+    </div>
+    <div class="div-box">
+        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+            <input type="submit" value="Выйти" />
+        </form>
+    </div>
+</div>

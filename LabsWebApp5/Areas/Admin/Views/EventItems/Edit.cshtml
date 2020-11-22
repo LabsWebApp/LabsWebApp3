@@ -1,0 +1,98 @@
+﻿@model EventItem
+@{
+    string strTitle = Model.Id == default 
+        ? "Добавить новое событие" 
+        : "Редактировать событие";
+    ViewBag.Title = strTitle;
+}
+
+<script src="~/js/ckeditor/ckeditor.js"></script>
+
+<div>
+    <h2>@strTitle</h2>
+    <div>
+        <form asp-area="Admin" asp-controller="EventItems" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="TitleImagePath" />
+            
+            @if(!ViewData.ModelState.IsValid)
+            {
+                <div class="warning-text" asp-validation-summary="All"></div>
+            }
+            <div class="div-box">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" />
+                <span class="warning-text" asp-validation-for="Title"></span>
+            </div>
+            <div class="div-box">
+                <label asp-for="DateAdded"></label>
+                <input type="datetime-local" asp-for="DateAdded" />
+                <span class="warning-text" asp-validation-for="DateAdded"></span>
+                <label>(Если установлено время "00:00", то Событие без времени, только дата. Для установки времени "00:00" - "00:01".)</label>
+            </div>
+            <div class="div-box">
+                <label asp-for="Subtitle"></label>
+                <input asp-for="Subtitle" />
+                <span class="warning-text" asp-validation-for="Subtitle"></span>
+            </div>
+            <div class="div-box">
+                <label asp-for="Text"></label>
+                <textarea asp-for="Text"></textarea>
+                <span class="warning-text" asp-validation-for="Text"></span>
+            </div>
+            <div class="div-box">
+                <label asp-for="TitleImagePath"></label>
+                <input type="file" name="titleImageFile" id="titleImageFile" />
+                @if (!string.IsNullOrWhiteSpace(Model.TitleImagePath))
+                {
+                    <div>
+                        <img class="img-block" src="~/images/DB/@Model.TitleImagePath" />
+                    </div>
+                }
+            </div>
+            <div class="div-box">
+                <label asp-for="MetaTitle"></label>
+                <input asp-for="MetaTitle" />
+                <span class="warning-text" asp-validation-for="MetaTitle"></span>
+            </div>
+            <div class="div-box">
+                <label asp-for="MetaDescription"></label>
+                <input asp-for="MetaDescription" />
+                <span class="warning-text" asp-validation-for="MetaDescription"></span>
+            </div>
+            <div class="div-box">
+                <label asp-for="MetaKeywords"></label>
+                <input asp-for="MetaKeywords" />
+                <span class="warning-text" asp-validation-for="MetaKeywords"></span>
+            </div>
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState["SaveImgError"]?.Errors.Count > 0)
+            {
+                <div class="alert" role="alert">
+                    <div class="div-color-red">
+                        <strong>Не удалось сохранить из-за титульной картинки!</strong><br />
+                        @ViewData.ModelState["SaveImgError"].Errors.First().ErrorMessage
+                    </div>
+                </div>
+            }
+            <input type="submit" value="Сохранить" />
+        </form>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        var newCKEdit = CKEDITOR.replace('@Html.IdFor(x=>x.Text)');
+        newCKEdit.updateElement();
+    }
+</script>
+
+<script type="text/javascript">
+    @if (!ViewData.ModelState.IsValid && ViewData.ModelState["SaveImgError"]?.Errors.Count > 0)
+        {
+            <text>
+            $(document).ready(function() {
+                alert('@ViewData.ModelState["SaveImgError"].Errors.First().ErrorMessage');
+            });
+            </text>
+        }
+</script>

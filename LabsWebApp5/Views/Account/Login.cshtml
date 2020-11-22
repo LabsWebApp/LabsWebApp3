@@ -1,0 +1,40 @@
+﻿@model LoginModel
+@{
+    ViewBag.Title = "Логин";
+}
+<div>
+    <h2>Вход в личный кабинет</h2>
+    <div class="div-box">
+        <form asp-area="" asp-controller="Account" asp-action="Login" method="post" asp-route-returnUrl="@ViewBag.returnUrl">
+            @if(!ViewData.ModelState.IsValid)
+            {
+                <div class="warning-text" asp-validation-summary="All"></div>
+            }
+            <div>
+                <a asp-area="" asp-controller="Account" asp-action="Register">Регистрация нового пользователя</a>
+                <br />
+            </div>
+            <div>
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName"/>
+                <span class="warning-text" asp-validation-for="UserName"></span>
+            </div>
+            <div>
+                <label asp-for="Password"></label>
+                <input asp-for="Password"/>
+                <span class="warning-text" asp-validation-for="Password"></span>
+                <a asp-area="" asp-controller="Account" asp-action="ForgotPassword">(забыли пароль)</a>
+            </div>
+            <div>
+                <br />
+                <label asp-for="RememberMe"></label>
+                <input asp-for="RememberMe" />
+                <span class="warning-text" asp-validation-for="RememberMe"></span>
+            </div>
+            <div>
+                <br/>
+                <input type="submit" value="Войти"/>
+            </div>
+        </form>
+    </div>
+</div>

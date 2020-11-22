@@ -1,0 +1,47 @@
+﻿@model EditRegisterModel
+@{
+    ViewBag.Title = "Регистрация";
+}
+<div>
+    <h2>Личные данные пользователя</h2>
+    <div class="div-box">
+        <form asp-controller="Account" asp-action="EditRegister" method="post" asp-route-returnUrl="@ViewBag.returnUrl">
+            @if(!ViewData.ModelState.IsValid)
+            {
+                <div class="warning-text" asp-validation-summary="All"></div>
+            }
+            <div>
+                <input asp-for="EmailConfirmed" type="hidden" />
+            </div>
+            <div>
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" />
+                <span class="warning-text" asp-validation-for="UserName"></span>
+            </div>
+            <div>
+                <label asp-for="Email"></label>
+                <input asp-for="Email" />
+                <span class="warning-text" asp-validation-for="Email"></span>
+            </div>
+            @if (!Model.EmailConfirmed)
+            {
+                <div>
+                    <a asp-area="" asp-controller="Account" asp-action="RegisterEmailConfirm">Подтвердите Ваш email!</a>
+                </div>
+            }
+            <div>
+                <br />
+                <input type="submit" value="Изменить" />
+            </div>
+            <div>
+                <br />
+                <a asp-area="" asp-controller="Account" asp-action="ForgotPassword" asp-route-email=@Model.Email>Изменить пароль</a>
+            </div>
+        </form>
+        <div class="div-box">
+            <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                <input type="submit" value="Выйти" />
+            </form>
+        </div>
+    </div>
+</div>
