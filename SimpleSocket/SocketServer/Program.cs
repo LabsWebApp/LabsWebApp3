@@ -14,23 +14,31 @@ namespace SocketServer
             server.Start();
             Console.WriteLine("server.Start " + server.LocalEndpoint);
             
-            TcpClient client = server.AcceptTcpClient();
-            Console.WriteLine("AcceptTcpClient " + client);
+            
 
-            var stream = client.GetStream();
+            for (;;)
+            {
+                TcpClient client = server.AcceptTcpClient();
+                Console.WriteLine("AcceptTcpClient " + client);
 
-            string msg = "Hello";
-            Encoding encode = Encoding.ASCII;
-            byte[] buffer = encode.GetBytes(msg);
+                var stream = client.GetStream();
 
-            stream.Write(buffer , 0, buffer.Length);
+                string msg = "Hello";
+                Encoding encode = Encoding.ASCII;
+                byte[] buffer = encode.GetBytes(msg);
 
-            stream.Flush();
+                stream.Write(buffer, 0, buffer.Length);
+                
+                stream.Flush();
+                client.Close(); 
+                Console.WriteLine("client closed");
 
-            client.Close();
-            Console.WriteLine("client closed");
+                if (Console.ReadKey().KeyChar==(char)ConsoleKey.E) break;
+            }
+
             server.Stop();
             Console.WriteLine("server stopped");
+            Console.ReadLine();
         }
     }
 }

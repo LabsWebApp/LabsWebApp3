@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimpleSocket", "SimpleSocke
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketServer", "SimpleSocket\SocketServer\SocketServer.csproj", "{02D484EE-ABEE-40CB-BB45-6E9FC2E4B71F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketClient", "SimpleSocket\SocketClient\SocketClient.csproj", "{823E50C0-E6E4-4AD9-B6B2-5C471D9FA3C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,12 +37,17 @@ Global
 		{02D484EE-ABEE-40CB-BB45-6E9FC2E4B71F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02D484EE-ABEE-40CB-BB45-6E9FC2E4B71F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02D484EE-ABEE-40CB-BB45-6E9FC2E4B71F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{823E50C0-E6E4-4AD9-B6B2-5C471D9FA3C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{823E50C0-E6E4-4AD9-B6B2-5C471D9FA3C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{823E50C0-E6E4-4AD9-B6B2-5C471D9FA3C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{823E50C0-E6E4-4AD9-B6B2-5C471D9FA3C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{02D484EE-ABEE-40CB-BB45-6E9FC2E4B71F} = {F18D9A07-0326-4D12-AD9F-AE4FD29B73AB}
+		{823E50C0-E6E4-4AD9-B6B2-5C471D9FA3C1} = {F18D9A07-0326-4D12-AD9F-AE4FD29B73AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A53EA67-47E2-460C-B8CE-3F6AEAAF798C}
