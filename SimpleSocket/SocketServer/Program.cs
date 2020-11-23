@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace SocketServer
 {
@@ -17,15 +18,19 @@ namespace SocketServer
             Console.WriteLine("AcceptTcpClient " + client);
 
             var stream = client.GetStream();
-            byte[] buffer = {55, 56};
+
+            string msg = "Hello";
+            Encoding encode = Encoding.ASCII;
+            byte[] buffer = encode.GetBytes(msg);
+
             stream.Write(buffer , 0, buffer.Length);
+
+            stream.Flush();
 
             client.Close();
             Console.WriteLine("client closed");
             server.Stop();
             Console.WriteLine("server stopped");
-            
-            Console.ReadLine();
         }
     }
 }
