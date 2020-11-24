@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LabsWebApp5.Areas.Chat.Controllers
+namespace LabsWebApp3.Areas.Chat.Controllers
 {
     [Area("Chat")]
     public class HomeController : Controller

@@ -1547,6 +1547,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Chat\Models\" />
     <Folder Include="wwwroot\images\DB\" />
   </ItemGroup>
 
