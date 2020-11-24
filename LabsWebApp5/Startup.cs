@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Owin;
+using Microsoft.Owin;
+[assembly: OwinStartup(typeof(LabsWebApp5.Startup))]
 
 namespace LabsWebApp5
 {
@@ -60,16 +63,20 @@ namespace LabsWebApp5
             //позже настроим для чата
             services.AddAuthorization(x =>
             {
-                x.AddPolicy("AdminArea", policy => { policy.RequireRole(Config.RoleAdmin); });
+                x.AddPolicy("ChatArea", policy 
+                    => { policy.RequireRole(Config.RoleReader);});
+                x.AddPolicy("AdminArea", policy 
+                    => { policy.RequireRole(Config.RoleAdmin); });
             });
 
             //добавляем сервисы для контроллеров и представлений (MVC)
             services.AddControllersWithViews(x =>
             {
-                x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
+                x.Conventions.Add(new AreaAuthorization("Chat", "ChatArea"));
+                x.Conventions.Add(new AreaAuthorization("Admin", "AdminArea"));
             })
                 //выставляем совместимость с asp.net core 3.0
-                .SetCompatibilityVersion(CompatibilityVersion.Latest)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddSessionStateTempDataProvider();
         }
 
@@ -92,9 +99,12 @@ namespace LabsWebApp5
             app.UseAuthentication();
             app.UseAuthorization();
 
+           // app.MapSignalR();
+
             //регистрируем нужные нам маршруты (ендпоинты)
             app.UseEndpoints(endpoints =>
             {
+               // endpoints.MapHub<ChatHub>("/Chat");
                 endpoints.MapControllerRoute(Config.Admin,
                     "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");

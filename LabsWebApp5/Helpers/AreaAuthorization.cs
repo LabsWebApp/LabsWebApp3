@@ -6,12 +6,12 @@ using System.Linq;
 
 namespace LabsWebApp5.Helpers
 {
-    public class AdminAreaAuthorization : IControllerModelConvention
+    public class AreaAuthorization : IControllerModelConvention
     {
         private readonly string area;
         private readonly string policy;
 
-        public AdminAreaAuthorization(string area, string policy)
+        public AreaAuthorization(string area, string policy)
         {
             this.area = area;
             this.policy = policy;
