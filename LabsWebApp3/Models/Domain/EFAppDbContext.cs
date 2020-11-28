@@ -13,7 +13,10 @@ namespace LabsWebApp3.Models.Domain
 
         public DbSet<TextField> TextFields { get; set; }
         public DbSet<EventItem> EventItems { get; set; }
-        
+
+        public DateTime GetBlock(Guid id) => 
+            ((DbContext)this).FromExpression(() => GetUsersByAge(age));
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -1,10 +1,16 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ChatModel
 @{
     string strTitle = "Чат";
     ViewBag.Title = strTitle;
 }
 <div>
-    <h2>@strTitle</h2>
+    <h2>@strTitle приветствует тебя, <label id="userInput">@Model.UserName</label>!</h2>
+    <div class="col-2">Message</div>
+    <div class="col-4"><input type="text" id="messageInput" /></div>
+    <div class="col-6">
+        <input type="button" id="sendButton" value="Send Message" />
+    </div>
+    <div class="col-6">
+        <ul id="messagesList"></ul>
+    </div>
 </div>

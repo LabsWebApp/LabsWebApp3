@@ -8,6 +8,10 @@
                         <a asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                         <a asp-area="" asp-controller="Events" asp-action="Index" asp-route-id="">Наши события</a>
                         <a asp-area="" asp-controller="Home" asp-action="Contacts">Контакты</a>
+                        @if (User.IsInRole(Config.RoleReader))
+                        {
+                            <a asp-area="chat" asp-controller="Home" asp-action="Index">Чат</a>
+                        }
                         @if (User.IsInRole(Config.RoleAdmin))
                         {
                             <a asp-area="admin" asp-controller="Home" asp-action="Index">Панель Администратора</a>

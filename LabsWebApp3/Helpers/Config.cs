@@ -6,6 +6,7 @@
         public const string EmailPass = "WebAppLabs";
 
         public static readonly string
+            Chat = "Chat",
             Admin = "admin",
             RoleReader = "chatreader",
             RoleWriter = "chatwriter",

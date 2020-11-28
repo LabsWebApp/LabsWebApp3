@@ -12,18 +12,16 @@ namespace LabsWebApp3.Controllers
     {
         public async Task<IActionResult> EditRegister(string returnUrl)
         {
-            if (!User.Identity.IsAuthenticated)
-                return await Register(returnUrl);
-
             var user = await userManager.GetUserAsync(User);
             if (user is null)
             {
+                string name = User.Identity.Name;
                 await signInManager.SignOutAsync();
                 HttpContext.Response.Cookies.Delete(".AspNetCore.Cookies");
                 return RedirectToAction("Info", "Home",
                     new InfoModel
                     {
-                        Title = "Пользователь не найден",
+                        Title = $"{name} не найден",
                         Text = "Приносим извинения: возможно Ваш Аккаунт был удалён или заблокирован модератором."
                     });
             }

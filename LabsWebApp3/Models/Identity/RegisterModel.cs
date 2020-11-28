@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using LabsWebApp3.Helpers;
 
 namespace LabsWebApp3.Models.Identity
 {

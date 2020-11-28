@@ -11,6 +11,7 @@ using LabsWebApp3.Models.Domain;
 using LabsWebApp3.Models.Domain.Repositories.Abstract;
 using LabsWebApp3.Models.Domain.Repositories.EntityFramework;
 using LabsWebApp3.Helpers;
+using Microsoft.AspNetCore.Http.Connections;
 
 namespace LabsWebApp3
 {
@@ -25,6 +26,15 @@ namespace LabsWebApp3
             Configuration.Bind("Project", new Config());
             Config.WebRootPath = Path
                 .Combine(Configuration.GetValue<string>(WebHostDefaults.ContentRootKey), "wwwroot");
+
+            //подключаем сокет сервер c опциями только для /ChatHub
+            services.AddSignalR().AddHubOptions<ChatHub>
+            (hubOptions =>
+            {
+                hubOptions.EnableDetailedErrors = true;
+                hubOptions.KeepAliveInterval = 
+                    System.TimeSpan.FromMinutes(29);
+            }); 
 
             //подключаем нужный функционал приложения в качестве сервиса
             services.AddTransient<ITextFieldsRepository, EFTextFieldsRepository>();
@@ -56,7 +66,7 @@ namespace LabsWebApp3
             });
 
             //настраиваем политику авторизации для Admin area
-            //позже настроим для чата
+            //и чата
             services.AddAuthorization(x =>
             {
                 x.AddPolicy("ChatArea", policy
@@ -68,8 +78,8 @@ namespace LabsWebApp3
             //добавляем сервисы для контроллеров и представлений (MVC)
             services.AddControllersWithViews(x =>
             {
-                x.Conventions.Add(new AreaAuthorization("Chat", "ChatArea"));
-                x.Conventions.Add(new AreaAuthorization("Admin", "AdminArea"));
+                x.Conventions.Add(new AreasAuthorization("Chat", "ChatArea"));
+                x.Conventions.Add(new AreasAuthorization("Admin", "AdminArea"));
             })
                 //выставляем совместимость с asp.net core 3.0
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();
@@ -97,11 +107,19 @@ namespace LabsWebApp3
             //регистрируем нужные нам маршруты (ендпоинты)
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/chatHub",
+                    options => {
+                        options.ApplicationMaxBufferSize = 256;
+                        options.TransportMaxBufferSize = 256;
+                        options.Transports = HttpTransportType.WebSockets;
+                    });
+
                 endpoints.MapControllerRoute(Config.Admin, 
                   "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapControllerRoute("Chat",
+                endpoints.MapControllerRoute(Config.Chat,
                     "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    "default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

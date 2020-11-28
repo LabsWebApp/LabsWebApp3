@@ -9,7 +9,7 @@ namespace SocketServer
     {
         static void Main(string[] args)
         {
-            TcpListener server = new TcpListener(IPAddress.Any, 4010);
+            TcpListener server = new TcpListener(IPAddress.Any, 6666);
             
             server.Start();
             Console.WriteLine("server.Start " + server.LocalEndpoint);

@@ -114,7 +114,7 @@ namespace LabsWebApp3.Areas.Admin.Controllers
             }
             else
             {
-                ModelState.AddModelError(String.Empty,
+                ModelState.AddModelError(string.Empty,
                     "Выбранного пользователя больше не существует");
             }
             return RedirectToAction("Index");
@@ -139,7 +139,7 @@ namespace LabsWebApp3.Areas.Admin.Controllers
             }
             else
             {
-                ModelState.AddModelError(String.Empty,
+                ModelState.AddModelError(string.Empty,
                     "Выбранного пользователя больше не существует");
             }
             return RedirectToAction("Index");
@@ -164,7 +164,7 @@ namespace LabsWebApp3.Areas.Admin.Controllers
 
             var isAdmin = await userManager.GetRolesAsync(currentUser);
 
-            if (isAdmin.All(x => x != RoleAdmin))
+            if (!isAdmin.Any(x => x == RoleAdmin))
             {
                 await signInManager.RefreshSignInAsync(currentUser);
                 return RedirectToAction(

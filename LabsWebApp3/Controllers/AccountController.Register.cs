@@ -68,7 +68,7 @@ namespace LabsWebApp3.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> RegisterEmailConfirm()
+        private async Task<IActionResult> RegisterEmailConfirm()
         {
             var user = await userManager.GetUserAsync(User);
             if (user is null)

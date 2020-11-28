@@ -12,7 +12,7 @@ namespace SocketClient
         {
             try
             {
-                TcpClient client = new TcpClient("10.4.82.43", 4010);
+                TcpClient client = new TcpClient("10.4.82.43", 6666);
                 var stream = client.GetStream();
                 byte[] buffer = new byte[1024];
                 stream.Read(buffer, 0, buffer.Length);
