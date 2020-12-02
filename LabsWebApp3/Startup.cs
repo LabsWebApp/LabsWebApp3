@@ -34,11 +34,13 @@ namespace LabsWebApp3
                 hubOptions.EnableDetailedErrors = true;
                 hubOptions.KeepAliveInterval = 
                     System.TimeSpan.FromMinutes(29);
-            }); 
+            });
+            services.AddSingleton<ConnectionMapping<string>>();
 
             //подключаем нужный функционал приложения в качестве сервиса
             services.AddTransient<ITextFieldsRepository, EFTextFieldsRepository>();
             services.AddTransient<IEventItemsRepository, EFEventItemsRepository>();
+            services.AddTransient<IFuncsRepository, EFFuncsRepository>();
             services.AddTransient<DataManager>();
 
             //подключаем контекст БД

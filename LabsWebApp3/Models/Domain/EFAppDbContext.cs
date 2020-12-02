@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Data;
+using System.Threading.Tasks;
 using LabsWebApp3.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using LabsWebApp3.Models.Domain.Entities;
+using Microsoft.Data.SqlClient;
+using System.Data.SqlTypes;
 
 namespace LabsWebApp3.Models.Domain
 {
@@ -14,8 +18,63 @@ namespace LabsWebApp3.Models.Domain
         public DbSet<TextField> TextFields { get; set; }
         public DbSet<EventItem> EventItems { get; set; }
 
-        public DateTime GetBlock(Guid id) => 
-            ((DbContext)this).FromExpression(() => GetUsersByAge(age));
+        public async Task<DateTime> GetBlockAsync(string id)
+        {
+            if (id == default)
+                return default;
+
+            var connection = (SqlConnection)Database.GetDbConnection();
+
+            string sqlExec = "EXEC dbo.ClearBlockedList",
+                sqlSelect = "SELECT dbo.GetBlocked (@Id)";
+
+            bool mustClose = false;
+            try
+            {
+                if (connection.State != ConnectionState.Connecting)
+                {
+                    mustClose = true;
+                    await connection.OpenAsync();
+                }
+
+                await using (var command = new SqlCommand(sqlExec, connection))
+                    await command.ExecuteNonQueryAsync();
+
+                await using (var command = new SqlCommand(sqlSelect, connection))
+                {
+                    command.Parameters.Add(new SqlParameter
+                        {
+                            ParameterName = "@Id",
+                            Value = id
+                        });
+
+                    await using var reader = await command.ExecuteReaderAsync();
+                    reader.Read();
+                    var res = reader.GetValue(0);
+                    return (DateTime)res;
+                }
+            }
+            catch
+            {
+                return default;
+            }
+            finally
+            {
+                if (mustClose) await connection.CloseAsync();
+            }
+        }
+
+        public async Task AddBlockAsync(string id, DateTime upto)
+        {
+            if (id == default)
+                return;
+            var _id = new SqlParameter("@Id", id);
+            //string sqlFormattedDate = upto.ToString("yyyy-MM-ddTHH:mm:ss.fffffff");
+            var _upto = new SqlParameter("@UpTo", new SqlDateTime(upto));
+            await Database
+                .ExecuteSqlRawAsync(
+                    "EXEC dbo.AddBlock {0}, {1}", _id, _upto);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

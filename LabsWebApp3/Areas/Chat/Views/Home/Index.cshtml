@@ -4,13 +4,55 @@
     ViewBag.Title = strTitle;
 }
 <div>
-    <h2>@strTitle приветствует тебя, <label id="userInput">@Model.UserName</label>!</h2>
-    <div class="col-2">Message</div>
-    <div class="col-4"><input type="text" id="messageInput" /></div>
-    <div class="col-6">
-        <input type="button" id="sendButton" value="Send Message" />
+    <h2>@strTitle приветствует Вас, <label id="userInput">@Model.UserName</label>!</h2>
+    <div>
+        <input id="UserName" type="hidden" asp-for="UserName" />
+        <input id="UpTo" type="hidden" asp-for="UpTo" />
+        <input id="IsBlocked" type="hidden" asp-for="IsBlocked" />
+        <input type="hidden" asp-for="Email" />
     </div>
-    <div class="col-6">
+
+    <div>Сообщение</div>
+    <div><input type="text" id="messageInput" /></div>
+    <div>
+        <input type="button" id="sendButton" value="Послать всем" />
+        <form>
+            <div>Кому:</div>
+            <input type="text" id="selectedUser" />
+            <input type="submit" id="sendPrivateButton" value="Послать приватно" />
+        </form>
+    </div>
+
+
+    @if (!Model.IsWriter)
+    {
+        <div>
+            <a asp-area="" asp-controller="Account" asp-action="RegisterEmailConfirm">Подтвердите Ваш email, чтобы отправлять сообщения!</a>
+        </div>
+    }
+    <div class="warning-text">
+        <label id="labelBlocked">@(Model.IsBlocked ? $"Вы заблокированы модератором и не можете посылать сообщений до {Model.UpTo}!" : "")</label>
+    </div>   
+    @if (Model.IsModerator)
+    {
+        <div>
+            <input type="button" id="blockButton" value="Блокировать" />
+            <p>
+                на:&nbsp;
+                <select id="ticks">
+                    <option selected="selected" value=@((long)TimesForBlock.Minute)>минуту</option>
+                    <option value=@((long)TimesForBlock.Hour)>час</option>
+                    <option value=@((long)TimesForBlock.ThreeHours)>три часа</option>
+                    <option value=@((long)TimesForBlock.Day)>день</option>
+                    <option value=@((long)TimesForBlock.Week)>неделю</option>
+                    <option value=@((long)TimesForBlock.Month)>месяц</option>
+                    <option value=@((long)TimesForBlock.Forever)>всегда</option>
+                </select>
+            </p>
+        </div>
+        
+    }
+    <div>
         <ul id="messagesList"></ul>
     </div>
 </div>

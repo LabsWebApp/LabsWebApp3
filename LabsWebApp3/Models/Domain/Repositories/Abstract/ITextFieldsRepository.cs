@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using LabsWebApp3.Models.Domain.Entities;
+﻿using LabsWebApp3.Models.Domain.Entities;
 
 namespace LabsWebApp3.Models.Domain.Repositories.Abstract
 {

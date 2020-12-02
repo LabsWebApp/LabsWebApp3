@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using LabsWebApp3.Areas.Chat.Models;
 using Microsoft.AspNetCore.Authorization;
 using LabsWebApp3.Models;
+using LabsWebApp3.Models.Domain;
+
+using static LabsWebApp3.Helpers.Config;
 
 namespace LabsWebApp3.Areas.Chat.Controllers
 {
@@ -15,35 +16,48 @@ namespace LabsWebApp3.Areas.Chat.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
+        private readonly DataManager dataManager;
 
         public HomeController(
             UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager,
+            DataManager dataManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.dataManager = dataManager;
         }
 
         [Authorize]
         public async Task<IActionResult> Index()
         {
             var user = await userManager.GetUserAsync(User);
-            if (user is null)
+            var roles = await userManager.GetRolesAsync(user);
+            if (user is null || !roles.Contains(RoleReader))
             {
                 string name = User.Identity.Name;
-                await signInManager.SignOutAsync();
-                HttpContext.Response.Cookies.Delete(".AspNetCore.Cookies");
+                if (user is null)
+                {
+                    await signInManager.SignOutAsync();
+                    HttpContext.Response.Cookies.Delete(".AspNetCore.Cookies");
+                }
+                else await signInManager.RefreshSignInAsync(user);
                 return RedirectToAction("Info", "Home",
                     new InfoModel
                     {
-                        Title = $"{name} не найден",
+                        Title = $"{name} в чате не найден",
                         Text = "Приносим извинения: возможно Ваш Аккаунт был удалён или заблокирован модератором."
                     });
             }
-
+            await signInManager.RefreshSignInAsync(user);
+            var upto = await dataManager.Funcs.GetBlockAsync(user.Id);
             return View(new ChatModel
             {
                 UserName = user.UserName,
+                UpTo = upto,
+                IsModerator = roles.Contains(RoleModerator),
+                IsWriter = roles.Contains(RoleWriter),
+                IsBlocked = upto >= DateTime.Now,
                 Email = user.Email
             });
         }
