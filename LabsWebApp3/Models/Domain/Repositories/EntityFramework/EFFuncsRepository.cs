@@ -7,11 +7,11 @@ using LabsWebApp3.Models.Domain.Repositories.Abstract;
 
 namespace LabsWebApp3.Models.Domain.Repositories.EntityFramework
 {
-    public class EFFuncsRepository : IFuncsRepository
+    public class EFFunctionsRepository : IFunctionsRepository
 
     {
         private readonly EFAppDbContext context;
-        public EFFuncsRepository(EFAppDbContext context) => 
+        public EFFunctionsRepository(EFAppDbContext context) => 
             this.context = context;
 
         public async Task AddBlockAsync(string id, DateTime upto)

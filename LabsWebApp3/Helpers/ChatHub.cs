@@ -61,7 +61,6 @@ namespace LabsWebApp3.Helpers
         public async Task SendBlock(string recipient, string tickStr)
         {
             const string impossible = " - блокировка невозможна";
-            var ticks = Convert.ToInt64(tickStr);
             var recipientUser = await userManager.FindByNameAsync(recipient);
             var conns = connections.GetConnections(Context.User.Identity.Name).ToList();
             if (recipientUser is null)
@@ -71,7 +70,7 @@ namespace LabsWebApp3.Helpers
                         $"{prefix}участник \"{recipient}\" не найден - блокировка невозможна");
                 return;
             }
-
+            var ticks = Convert.ToInt64(tickStr);
             if (await userManager.IsInRoleAsync(recipientUser, RoleAdmin))
             {
                 await Clients.Clients(conns)
@@ -93,11 +92,15 @@ namespace LabsWebApp3.Helpers
                     recipientUser,
                     new[] { RoleReader, RoleWriter });
             }
+
             DateTime upto = DateTime.Now.AddTicks(ticks);
             var recipients = connections.GetConnections(recipient).ToList();
+            
             if(recipients.Any())
                 await Clients.Clients(recipients).SendAsync("ReceiveBlocked", upto);
-            await dataManager.Funcs.AddBlockAsync(recipientUser.Id, upto);
+
+            await dataManager.Functions.AddBlockAsync(recipientUser.Id, upto);
+
             await Clients.Clients(conns)
                 .SendAsync("ReceiveMessage",
                     $"(приватно)\"{recipient}\" успешно заблокирован до {upto}");

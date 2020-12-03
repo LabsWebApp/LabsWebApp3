@@ -9,20 +9,15 @@ namespace LabsWebApp3.Areas.Chat.Models
         [Display(Name = "Логин")]
         public string UserName { get; set; }
 
-        public string BlockedUserName { get; set; }
-
-        public TimesForBlock Times { get; set; }
-
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        public DateTime UpTo { get; set; }
+        public bool IsBlocked { get; set; }
+
         public bool IsModerator { get; set; }
 
         public bool IsWriter { get; set; }
-
-        public DateTime UpTo { get; set; }
-
-        public bool IsBlocked { get; set; }
     }
 }

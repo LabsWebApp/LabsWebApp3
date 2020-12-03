@@ -20,19 +20,20 @@ connection.on("ReceiveMessage", function (message) {
 });
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
-    var blocked = document.getElementById("IsBlocked");
-    if (blocked.value) {
+    const blocked = document.getElementById("IsBlocked");
+    var low = blocked.value.toString().toLowerCase();
+    if (low == "true") {
         var time = document.getElementById("UpTo").value;
         var now = new Date();
         if (now >= time) {
             blocked.value = false;
         }
         else {
-            document.getElementById("labelBlocked").text =
-                "Вы заблокированы модератором и не можете посылать сообщений до " + time + "!";
+            setLabelBlocked();
             return;
         }
     }
+
     document.getElementById("labelBlocked").context = "";
     var message = document.getElementById("messageInput").value;
     var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -60,8 +61,7 @@ connection.on("ReceiveBlocked", function (upto) {
     }
     document.getElementById("IsBlocked").value = true;
     document.getElementById("UpTo").value = upto;
-    document.getElementById("labelBlocked").innerText =
-        "Вы заблокированы модератором и не можете посылать сообщений до " + upto + "!";
+    setLabelBlocked();
 });
 
 document.getElementById("blockButton").addEventListener("click", function (event) {
@@ -73,3 +73,13 @@ document.getElementById("blockButton").addEventListener("click", function (event
     });
     event.preventDefault();
 });
+
+function setLabelBlocked() {
+    var label = document.getElementById("labelBlocked");
+    var upto = document.getElementById("UpTo").value;
+    if (upto === null || upto <= new Date()) {
+        label.innerText = "";
+    } else {
+        label.innerText = "Вы заблокированы модератором и не можете посылать сообщений до " + upto + "!";
+    }
+}

@@ -8,16 +8,16 @@ namespace LabsWebApp3.Models.Domain
         public ITextFieldsRepository TextFields { get; set; }
         public IEventItemsRepository EventItems { get; set; }
 
-        public IFuncsRepository Funcs { get; set; }
+        public IFunctionsRepository Functions { get; set; }
 
         public DataManager(
             ITextFieldsRepository textFieldsRepository, 
             IEventItemsRepository eventItemsRepository,
-            IFuncsRepository funcs)
+            IFunctionsRepository functions)
         {
             TextFields = textFieldsRepository;
             EventItems = eventItemsRepository;
-            Funcs = funcs;
+            Functions = functions;
         }
     }
 }

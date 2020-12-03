@@ -42,6 +42,9 @@ namespace LabsWebApp3.Models.Domain
 
                 await using (var command = new SqlCommand(sqlSelect, connection))
                 {
+                    //var param = new SqlParameter();
+                    //param.ParameterName = "@Id";
+                    //param.Value = id;
                     command.Parameters.Add(new SqlParameter
                         {
                             ParameterName = "@Id",

@@ -50,7 +50,7 @@ namespace LabsWebApp3.Areas.Chat.Controllers
                     });
             }
             await signInManager.RefreshSignInAsync(user);
-            var upto = await dataManager.Funcs.GetBlockAsync(user.Id);
+            var upto = await dataManager.Functions.GetBlockAsync(user.Id);
             return View(new ChatModel
             {
                 UserName = user.UserName,

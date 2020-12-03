@@ -40,7 +40,7 @@ namespace LabsWebApp3
             //подключаем нужный функционал приложения в качестве сервиса
             services.AddTransient<ITextFieldsRepository, EFTextFieldsRepository>();
             services.AddTransient<IEventItemsRepository, EFEventItemsRepository>();
-            services.AddTransient<IFuncsRepository, EFFuncsRepository>();
+            services.AddTransient<IFunctionsRepository, EFFunctionsRepository>();
             services.AddTransient<DataManager>();
 
             //подключаем контекст БД

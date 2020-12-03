@@ -16,13 +16,12 @@
     <div><input type="text" id="messageInput" /></div>
     <div>
         <input type="button" id="sendButton" value="Послать всем" />
-        <form>
+        <div>
             <div>Кому:</div>
             <input type="text" id="selectedUser" />
             <input type="submit" id="sendPrivateButton" value="Послать приватно" />
-        </form>
+        </div>
     </div>
-
 
     @if (!Model.IsWriter)
     {

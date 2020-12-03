@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LabsWebApp3.Models.Domain.Repositories.Abstract
 {
-    public interface IFuncsRepository
+    public interface IFunctionsRepository
     {
         public Task AddBlockAsync(string id, DateTime upto);
         public Task<DateTime> GetBlockAsync(string id);
