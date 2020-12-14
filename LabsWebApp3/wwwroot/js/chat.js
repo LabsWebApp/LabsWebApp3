@@ -21,8 +21,7 @@ connection.on("ReceiveMessage", function (message) {
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
     const blocked = document.getElementById("IsBlocked");
-    var low = blocked.value.toString().toLowerCase();
-    if (low == "true") {
+    if (blocked.checked) {
         var time = document.getElementById("UpTo").value;
         var now = new Date();
         if (now >= time) {

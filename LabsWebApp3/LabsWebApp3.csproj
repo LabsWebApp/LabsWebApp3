@@ -1526,6 +1526,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Chat\Models\ModeratorServices\" />
+    <Folder Include="Controllers\Helpers\" />
     <Folder Include="wwwroot\images\DB\" />
   </ItemGroup>
 

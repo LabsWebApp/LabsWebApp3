@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using LabsWebApp3.Controllers.Helpers;
 using LabsWebApp3.Helpers;
 using LabsWebApp3.Models;
 using Microsoft.AspNetCore.Identity;
