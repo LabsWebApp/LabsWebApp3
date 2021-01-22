@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace LabsWebApp3.Models.Domain.Entities
 {
-    public abstract class EntityBase
+    public abstract class EntityBase : ValueObject
     {
         protected EntityBase() => DateAdded = DateTime.UtcNow.Date;
 
@@ -34,5 +35,10 @@ namespace LabsWebApp3.Models.Domain.Entities
         [DataType(DataType.Time)]
         [Display(Name = "Дата и время")]
         public DateTime DateAdded { get; set; }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Id;
+        }
     }
 }

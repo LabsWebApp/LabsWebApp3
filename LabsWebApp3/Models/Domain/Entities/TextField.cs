@@ -2,7 +2,7 @@
 
 namespace LabsWebApp3.Models.Domain.Entities
 {
-    public class TextField : EntityBase
+    public sealed class TextField : EntityBase
     {
         [Required]
         public string CodeWord { get; set; }

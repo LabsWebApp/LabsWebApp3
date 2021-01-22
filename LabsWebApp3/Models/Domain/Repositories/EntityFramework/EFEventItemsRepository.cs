@@ -3,7 +3,6 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using LabsWebApp3.Models.Domain.Entities;
 using LabsWebApp3.Models.Domain.Repositories.Abstract;
-using System.Runtime.CompilerServices;
 
 namespace LabsWebApp3.Models.Domain.Repositories.EntityFramework
 {

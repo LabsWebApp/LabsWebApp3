@@ -28,6 +28,7 @@ namespace LabsWebApp3
                 .Combine(Configuration.GetValue<string>(WebHostDefaults.ContentRootKey), "wwwroot");
 
             //подключаем сокет сервер c опциями только для /ChatHub
+            services.AddSingleton<ConnectionDictionary<string>>();
             services.AddSignalR().AddHubOptions<ChatHub>
             (hubOptions =>
             {
@@ -35,7 +36,6 @@ namespace LabsWebApp3
                 hubOptions.KeepAliveInterval = 
                     System.TimeSpan.FromMinutes(29);
             });
-            services.AddSingleton<ConnectionMapping<string>>();
 
             //подключаем нужный функционал приложения в качестве сервиса
             services.AddTransient<ITextFieldsRepository, EFTextFieldsRepository>();

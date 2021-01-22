@@ -17,12 +17,12 @@ namespace LabsWebApp3.Helpers
         private readonly UserManager<IdentityUser> userManager;
         private readonly DataManager dataManager;
 
-        private readonly ConnectionMapping<string> connections;
+        private readonly ConnectionDictionary<string> connections;
 
         public ChatHub(
             UserManager<IdentityUser> userManager,
             DataManager dataManager,
-            ConnectionMapping<string> connections)
+            ConnectionDictionary<string> connections)
         {
             this.userManager = userManager;
             this.dataManager = dataManager;

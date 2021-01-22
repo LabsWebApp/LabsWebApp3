@@ -2,7 +2,7 @@
 
 namespace LabsWebApp3.Models.Domain.Entities
 {
-    public class EventItem : EntityBase
+    public sealed class EventItem : EntityBase
     {
         [Required(ErrorMessage = "Заполните название события")]
         [Display(Name = "Название события")]
